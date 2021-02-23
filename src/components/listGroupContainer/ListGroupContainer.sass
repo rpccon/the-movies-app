@@ -8,6 +8,46 @@ ul
       background-color: #818581
 
 .list-group
-
   h2
     text-align: left
+  
+  .list-group-item
+    display: flex
+
+    a
+      position: absolute
+      right: 3rem
+      top: 6px
+      font-weight: bold
+      display: none
+
+    &:hover
+      a
+        display: block
+    
+
+.api-list
+  h2
+    text-align: center
+
+  .list-group-item
+    flex-direction: row
+    justify-content: center
+    align-items: center
+
+  .api-text-container
+    width: 22%
+
+  .api-img
+    padding-right: 6rem
+
+@media screen and (max-width: 749px)
+  .api-list
+    .list-group-item
+      flex-direction: column
+
+    .api-text-container
+      width: 90%
+
+    .api-img
+      padding-right: 0

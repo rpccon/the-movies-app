@@ -2,7 +2,9 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   movies: [],
-  selectedMovie: {}
+  selectedMovie: {},
+  apiMovies: [],
+  loading: true
 }
 
 const moviesState = (state = initialState, action) => {
@@ -16,7 +18,15 @@ const moviesState = (state = initialState, action) => {
     case types.UPDATE_SELECTED_MOVIE: {
       return {
         ...state,
+        movies: action.payload.movies,
         selectedMovie: action.payload.selectedMovie,
+      }
+    }
+    case types.API_MOVIES: {
+      return {
+        ...state,
+        apiMovies: action.payload.apiMovies,
+        loading: action.payload.loading,
       }
     }
 

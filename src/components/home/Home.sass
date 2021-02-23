@@ -22,13 +22,51 @@
         align-items: center
 
         .card-img-top
-          width: 27%
+          width: 44%
 
       .main-title
         display: flex
         align-items: center
         height: 46px
 
+        .empty
+          font-size: 26px
+          margin-top: 24rem
+          color: red
+          position: absolute
+          left: 48%
+          transform: translate(-50%, -50%)
+
         div
           position: absolute
           right: 5rem
+
+  @media screen and (max-width: 750px)
+    .add-movie-cta
+      text-align: center
+      padding-right: 0
+      padding-bottom: 3rem
+
+    .list-group-data
+      margin-left: 0
+      flex-direction: column-reverse
+      align-items: center
+
+      .list-group
+        width: 89%
+        padding-bottom: 10rem
+
+      .movieSelected
+        margin-left: 0
+        width: 89%
+
+        .main-title
+        flex-direction: column
+        padding-bottom: 6rem
+
+        div
+          position: relative
+          right: 0
+
+        .card .card-img-top
+          width: 41%

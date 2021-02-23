@@ -10,6 +10,15 @@ export const update_movies = data => ({
 export const update_selected_movie = data => ({
   type: types.UPDATE_SELECTED_MOVIE,
   payload: {
-    selectedMovie: data.selectedMovie
+    selectedMovie: data.selectedMovie,
+    movies: data.movies
+  }
+});
+
+export const update_api_movies = data => ({
+  type: types.API_MOVIES,
+  payload: {
+    apiMovies: data.apiMovies,
+    loading: data.loading
   }
 });

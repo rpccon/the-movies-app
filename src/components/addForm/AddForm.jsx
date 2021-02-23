@@ -7,108 +7,98 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 
 const AddForm = ({ update_movies, movies }) => {
-  const handleSubmit = (event) => {
-    
+  const handleSubmit = () => {
     const currentForm = document.querySelector('.needs-validation');
-    //alert("run this");
+
     if(currentForm.checkValidity()) {
       const file = document.querySelector('input[type=file]').files[0];
       const movieTitle = document.querySelector('input[id="movieTitleDataText"]').value;
-      const movieDescription = document.querySelector('input[id="movieDescData"]').value;  //    querySelector('textarea[id=""]'.value);
+      const movieDescription = document.querySelector('input[id="movieDescData"]').value;
       const movieRelease = document.querySelector('input[id="releaseDateMovieData"]').value;
-
-      console.log(movieTitle, movieDescription, movieRelease);
-      console.log("FINLE", file);
       const reader = new FileReader();
-    //  debugger;
-    console.log("currently videos", movies);
+
       reader.onloadend = () => {
-
-        console.log("rererer", reader.result);
-
         const newMovie = new Movie([`${uniqid()}`, movieTitle, movieRelease, movieDescription, reader.result, 0]);
-        
-  
+
         currentForm.classList.add('was-validated')
-        console.log("test", [...movies, newMovie]);
+
         update_movies({
           movies: [...movies, newMovie]
         })
-        //debugger;
-        
-      
       };
       reader.readAsDataURL(file);
-      
-    ///  debugger;
-
-
-      console.log("currently videosv2", movies);
-
-      //debugger;
-    } else {
-     // event.preventDefault();
-     // event.stopPropagation();
     }
-    
   }
+  const onInputChange = (event) => {
+    const formElement = event.target
+    const file = formElement.files[0]
+    const parsedMb = file.size / 1024 / 1024
+    const reader = new FileReader();
 
-  const ipdategg = () => {
-    const newMovie = new Movie([`${uniqid()}`, "TEST", "TEST", "TEST", "TEST", 0]);
-    update_movies({
-      movies: [...movies, newMovie]
-    })
-  }
-
-
+    reader.onloadend = () => {
+      const image = new Image();
+      image.src = reader.result;
   
-return (
-  <form className="needs-validation" action={"/home"}>
+      image.onload = () => {
+        if(parsedMb > 1) {
+          const errorMessage = formElement.parentElement.querySelector(".invalid-feedback");
+
+          formElement.value=""
+          errorMessage.style.display = "block"
+
+          setTimeout(() => {
+            errorMessage.style.display = "none"
+          }, 3000);
+        } else {
+          if(image.naturalWidth > 500 && image.naturalHeight > 500) {
+            const errorMessage = formElement.parentElement.querySelector(".invalid-feedback");
+
+            formElement.value=""
+            errorMessage.style.display = "block"
+
+            setTimeout(() => {
+              errorMessage.style.display = "none"
+            }, 3000);
+          }
+        }
+      }
+    }
+
+    reader.readAsDataURL(file);
+  }
+
+  return (
+    <form className="needs-validation" action={"/home"}>
       <div className="col-md-6">
         <label htmlFor="validationCustom03" className="form-label">Movie title</label>
         <input type="text" className="form-control" id="movieTitleDataText" required />
-        <div className="invalid-feedback">
-          Please provide a valid city.
-        </div>
+        <div className="invalid-feedback"></div>
       </div>
       <div className="col-md-6">
         <label htmlFor="validationCustom03" className="form-label">Movie description</label>
         <input type="text" className="form-control" id="movieDescData" required />
-        <div className="invalid-feedback">
-          Please provide a valid city.
-        </div>
+        <div className="invalid-feedback"></div>
       </div>
       <div className="col-md-6">
         <label htmlFor="validationCustom03" className="form-label">Release data</label>
-        <input type="text" className="form-control" id="releaseDateMovieData" required />
-        <div className="invalid-feedback">
-          Please provide a valid city.
-        </div>
+        <input type="date" format="DD MMMM YYYY" className="form-control" id="releaseDateMovieData" required />
+        <div className="invalid-feedback"></div>
       </div>
-      <div className="col-md-6">
-        <input type="file" className="form-control" aria-label="file example" required />
-        <div className="invalid-feedback">Example invalid form file feedback</div>
+      <div className="col-md-6 file-input">
+        <input onChange={onInputChange} type="file" className="form-control" aria-label="file example" required />
+        <div className="invalid-feedback">The attached image is too big, try get other one with less weight (Max 500x500, 1MB)</div>
       </div>
-
       <div className="col-md-6">
         <button onClick={handleSubmit} className="btn btn-primary" type="submit">Submit form</button>
       </div>
     </form>
-)
-   /* {/*}*/
- // )
+  )
 }
 
-
-// export default AddForm
-
-
-
 const mapStateToProps = (state) => {
-  console.log("state", state);
-    return {
-      movies: state.moviesState.movies,
-    }
+  return {
+    movies: state.moviesState.movies,
+  }
 }
 
 export default connect(
