@@ -1,4 +1,3 @@
-import "./RouterConfig.sass"
 import { nav_click } from '../../redux/actions/navActions'
 import { update_movies, update_selected_movie } from '../../redux/actions/moviesActions'
 import { connect } from 'react-redux'
@@ -6,7 +5,7 @@ import Home from "../home/Home"
 import Header from "../header/Header"
 import TopMovies from "../topMovies/TopMovies"
 import AddForm from "../addForm/AddForm"
-import { useEffect } from 'react'
+import "./RouterConfig.sass"
 
 const RouterConfig = (fullState) => {
   const {selectedMovie, update_selected_movie, movies, update_movies, match: { params }} = fullState;

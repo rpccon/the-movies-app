@@ -1,7 +1,8 @@
-import Movie from "../../model/movie/Movie";
+
 import ListGroupContainer from "../listGroupContainer/ListGroupContainer";
-import "./Home.sass";
 import { isEmpty } from "lodash";
+import "./Home.sass";
+
 
 const Home = (fullProps) => {
   const { update_movies, movies, selectedMovie, update_selected_movie } = fullProps;
@@ -35,7 +36,6 @@ const Home = (fullProps) => {
     <div className="components-container">
       <div className="add-movie-cta"><a className="btn btn-primary" href="/addForm" role="button">Add new movie</a></div>
       <div className="list-group-data">
-
         <ListGroupContainer
           title={headTitle}
           movies={movies}
@@ -59,7 +59,6 @@ const Home = (fullProps) => {
               </div>
             }
           </div>
-          
         }
       </div>
     </div>
@@ -67,15 +66,3 @@ const Home = (fullProps) => {
 }
 
 export default Home;
-
-
-const mapStateToProps = (state) => {
-  return {
-    movies: state.moviesState.movies,
-  }
-}
-
-/*export default connect(
-    mapStateToProps,
-    { update_movies }
-)(Home); */

@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { persistor, store } from './redux/store';
-// import  from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import reportWebVitals from './reportWebVitals';
+import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>

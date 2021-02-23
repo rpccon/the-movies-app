@@ -1,9 +1,9 @@
-import './TopMovies.sass';
-import { connect } from 'react-redux';
 import axios from 'axios';
-import { useEffect } from 'react';
-import { update_api_movies } from '../../redux/actions/moviesActions';
 import ListGroupContainer from "../listGroupContainer/ListGroupContainer";
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { update_api_movies } from '../../redux/actions/moviesActions';
+import './TopMovies.sass';
 
 const TopMovies = ({update_api_movies,loading, apiMovies}) => {
   useEffect(() => {
@@ -19,6 +19,7 @@ const TopMovies = ({update_api_movies,loading, apiMovies}) => {
       });
     })
     .catch((error) => {
+      alert("Cors from the API attached are not supporting this origin");
       console.log("Error", error);
     })
   }, [])

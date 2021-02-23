@@ -1,9 +1,8 @@
-import './App.css';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import RouterConfig from "./components/routerConfig/RouterConfig";
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import './App.css';
 
 function App() {
- // alert("refresh");
   return (
     <div className="App">
       <Router>

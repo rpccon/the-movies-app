@@ -1,10 +1,8 @@
-import "./AddForm.sass";
-import imageToBase64 from "image-to-base64"
 import uniqid from "uniqid"
 import Movie from "../../model/movie/Movie";
 import { update_movies } from '../../redux/actions/moviesActions'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import "./AddForm.sass";
 
 const AddForm = ({ update_movies, movies }) => {
   const handleSubmit = () => {
@@ -89,7 +87,7 @@ const AddForm = ({ update_movies, movies }) => {
         <div className="invalid-feedback">The attached image is too big, try get other one with less weight (Max 500x500, 1MB)</div>
       </div>
       <div className="col-md-6">
-        <button onClick={handleSubmit} className="btn btn-primary" type="submit">Submit form</button>
+        <button onClick={handleSubmit} className="btn btn-primary" type="submit">Save movie</button>
       </div>
     </form>
   )
