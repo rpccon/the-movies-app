@@ -83,7 +83,7 @@ const AddForm = ({ update_movies, movies }) => {
         <div className="invalid-feedback"></div>
       </div>
       <div className="col-md-6 file-input">
-        <input onChange={onInputChange} type="file" className="form-control" aria-label="file example" required />
+        <input accept="image/*" onChange={onInputChange} type="file" className="form-control" aria-label="file example" required />
         <div className="invalid-feedback">The attached image is too big, try get other one with less weight (Max 500x500, 1MB)</div>
       </div>
       <div className="col-md-6">
