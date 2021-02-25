@@ -1,7 +1,4 @@
-import uniqid from "uniqid"
 import Movie from "../../model/movie/Movie";
-import { update_movies } from '../../redux/actions/moviesActions'
-import { connect } from 'react-redux'
 import "./AddForm.sass";
 
 const AddForm = ({ update_movies, movies }) => {
@@ -19,7 +16,7 @@ const AddForm = ({ update_movies, movies }) => {
       event.preventDefault();
 
       reader.onloadend = () => {
-        const newMovie = new Movie([`${uniqid()}`, movieTitle, movieRelease, movieDescription, reader.result, 0]);
+        const newMovie = new Movie([ movieTitle, movieRelease, movieDescription, reader.result, 0]);
 
         currentForm.classList.add("was-validated")
 

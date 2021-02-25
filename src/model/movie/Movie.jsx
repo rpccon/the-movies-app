@@ -1,20 +1,17 @@
-import { Component } from 'react'
+import { Component } from "react"
+import uniqid from "uniqid"
 
 class Movie extends Component {
   constructor(props) {
     super(props)
 
-    const [ id, title, release, description, imageSrc, isSelected ] = props;
-    this.id = id;
+    const [ title, release, description, imageSrc, isSelected ] = props;
+    this.id = uniqid();
     this.title = title;
     this.release = release;
     this.description = description;
     this.imageSrc = imageSrc;
     this.selected = isSelected;
-  }
-
-  getData() {
-    return this;
   }
 }
 
