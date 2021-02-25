@@ -6,7 +6,6 @@ import "./AddForm.sass";
 
 const AddForm = ({ update_movies, movies }) => {
   const handleSubmit = (event) => {
-    console.log("hear this");
     const currentForm = document.querySelector('.needs-validation');
 
     if(currentForm.checkValidity()) {
@@ -15,13 +14,14 @@ const AddForm = ({ update_movies, movies }) => {
       const movieDescription = document.querySelector('input[id="movieDescData"]').value;
       const movieRelease = document.querySelector('input[id="releaseDateMovieData"]').value;
       const reader = new FileReader();
+
       event.stopPropagation();
       event.preventDefault();
 
       reader.onloadend = () => {
         const newMovie = new Movie([`${uniqid()}`, movieTitle, movieRelease, movieDescription, reader.result, 0]);
 
-        currentForm.classList.add('was-validated')
+        currentForm.classList.add("was-validated")
 
         update_movies({
           movies: [...movies, newMovie]
@@ -77,13 +77,4 @@ const AddForm = ({ update_movies, movies }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    movies: state.moviesState.movies,
-  }
-}
-
-export default connect(
-    mapStateToProps,
-    { update_movies }
-  )(AddForm);
+export default AddForm

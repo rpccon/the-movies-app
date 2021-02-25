@@ -25,7 +25,9 @@ const RouterConfig = (fullState) => {
         break;
       case "addForm":
         return <AddForm
-        />;
+          update_movies={update_movies}
+          movies={movies}
+        />
         break;
       default:
         return;

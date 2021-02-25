@@ -3,11 +3,11 @@ import ListGroupContainer from "../listGroupContainer/ListGroupContainer";
 import { isEmpty } from "lodash";
 import "./Home.sass";
 
-
+const EMPTY = ""
 const Home = (fullProps) => {
-  const { update_movies, movies, selectedMovie, update_selected_movie } = fullProps;
+  const { movies, selectedMovie, update_selected_movie } = fullProps;
   const orderDate = (strDate) => {
-    let finalStr = ""
+    let finalStr = EMPTY
 
     if(strDate) {
       const [ year, month, day ] = strDate.split(/_| |-/)
@@ -19,17 +19,21 @@ const Home = (fullProps) => {
     return finalStr
   }
 
-  let currentTitle = "¡There are no movies available, add one!"
-  let headTitle = ""
-  let currentRelease = ""
-  let emptyClass = ""
+  let currentTitle = EMPTY
+  let headTitle = EMPTY
+  let currentRelease = EMPTY
+  let emptyClass = EMPTY
 
-  if(!isEmpty(movies)) {
-    currentTitle = selectedMovie.title //"There are no movies available, add one !"
+  if(!isEmpty(selectedMovie)) {
+    currentTitle = selectedMovie.title
     currentRelease = `RELEASE DATE: ${orderDate(selectedMovie.release)}`
-    headTitle = "Movies"
-  } else {
+  }
+
+  if(isEmpty(movies)) {
+    currentTitle = "¡There are no movies available, add one!"
     emptyClass = "empty"
+  } else {
+    headTitle = "Movies"
   }
 
   return (
@@ -40,7 +44,7 @@ const Home = (fullProps) => {
           title={headTitle}
           movies={movies}
           activeIdMovieChange={1}
-          classData={""}
+          classData={EMPTY}
           selectedMovie={selectedMovie}
           update_selected_movie={update_selected_movie}
         />
