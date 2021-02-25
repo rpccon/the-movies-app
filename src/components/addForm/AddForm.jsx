@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import "./AddForm.sass";
 
 const AddForm = ({ update_movies, movies }) => {
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    console.log("hear this");
     const currentForm = document.querySelector('.needs-validation');
 
     if(currentForm.checkValidity()) {
@@ -14,6 +15,8 @@ const AddForm = ({ update_movies, movies }) => {
       const movieDescription = document.querySelector('input[id="movieDescData"]').value;
       const movieRelease = document.querySelector('input[id="releaseDateMovieData"]').value;
       const reader = new FileReader();
+      event.stopPropagation();
+      event.preventDefault();
 
       reader.onloadend = () => {
         const newMovie = new Movie([`${uniqid()}`, movieTitle, movieRelease, movieDescription, reader.result, 0]);
@@ -23,6 +26,8 @@ const AddForm = ({ update_movies, movies }) => {
         update_movies({
           movies: [...movies, newMovie]
         })
+
+        currentForm.submit()
       };
       reader.readAsDataURL(file);
     }
@@ -31,38 +36,17 @@ const AddForm = ({ update_movies, movies }) => {
     const formElement = event.target
     const file = formElement.files[0]
     const parsedMb = file.size / 1024 / 1024
-    const reader = new FileReader();
 
-    reader.onloadend = () => {
-      const image = new Image();
-      image.src = reader.result;
-  
-      image.onload = () => {
-        if(parsedMb > 1) {
-          const errorMessage = formElement.parentElement.querySelector(".invalid-feedback");
+    if(parsedMb > 0.7) {
+      const errorMessage = formElement.parentElement.querySelector(".invalid-feedback");
 
-          formElement.value=""
-          errorMessage.style.display = "block"
+      formElement.value=""
+      errorMessage.style.display = "block"
 
-          setTimeout(() => {
-            errorMessage.style.display = "none"
-          }, 3000);
-        } else {
-          if(image.naturalWidth > 500 && image.naturalHeight > 500) {
-            const errorMessage = formElement.parentElement.querySelector(".invalid-feedback");
-
-            formElement.value=""
-            errorMessage.style.display = "block"
-
-            setTimeout(() => {
-              errorMessage.style.display = "none"
-            }, 3000);
-          }
-        }
-      }
+      setTimeout(() => {
+        errorMessage.style.display = "none"
+      }, 3000);
     }
-
-    reader.readAsDataURL(file);
   }
 
   return (
@@ -84,7 +68,7 @@ const AddForm = ({ update_movies, movies }) => {
       </div>
       <div className="col-md-6 file-input">
         <input accept="image/*" onChange={onInputChange} type="file" className="form-control" aria-label="file example" required />
-        <div className="invalid-feedback">The attached image is too big, try get other one with less weight (Max 500x500, 1MB)</div>
+        <div className="invalid-feedback">The attached image is too big, try get other one with less of 716kb</div>
       </div>
       <div className="col-md-6">
         <button onClick={handleSubmit} className="btn btn-primary" type="submit">Save movie</button>
